@@ -1,0 +1,527 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+ion-content {
+  --background: #0a0a0a;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #fff;
+}
+
+// Header
+ion-header {
+  --background: transparent;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 10;
+  // Adicionando padding para safe area
+  padding-top: env(safe-area-inset-top);
+  
+  ion-toolbar {
+    --background: transparent;
+    --color: #fff;
+    padding-top: 8px;
+    // Adicionando padding extra para dispositivos com notch/camera
+    padding-top: max(8px, env(safe-area-inset-top, 0px) + 8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    .search-item {
+      --background: rgba(255,255,255,0.1);
+      --border-radius: 12px;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 8px;
+      border: none;
+      box-shadow: none;
+      
+      ion-input {
+        --color: #fff;
+        --placeholder-color: #999;
+        padding: 0 8px;
+        border: none;
+        
+        &::part(native) {
+          color: #fff;
+          background: transparent;
+        }
+      }
+    }
+  }
+}
+
+// App Branding Section
+.app-branding {
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .brand-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Categories Section - Novo Layout
+.categories-section {
+  padding: 16px;
+  
+  .categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+    .favorites-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+    
+    .genres-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+  }
+  
+  .category-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 80px;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.12);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      border-color: #4ecdc4;
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+      
+      .category-icon ion-icon {
+        color: #000;
+        transform: scale(1.1);
+      }
+      
+      .category-label {
+        color: #000;
+        font-weight: 600;
+      }
+      
+      .category-count {
+        background: rgba(0,0,0,0.2);
+        color: #000;
+      }
+    }
+    
+    &.favorites-card {
+      background: linear-gradient(135deg, rgba(255,69,58,0.1), rgba(255,45,85,0.1));
+      border-color: rgba(255,69,58,0.3);
+      
+      &:not(.active) {
+        .category-icon ion-icon {
+          color: #ff4757;
+        }
+      }
+      
+      &.active {
+        background: linear-gradient(135deg, #ff4757, #ff3742);
+        border-color: #ff4757;
+        
+        .category-icon ion-icon {
+          color: #fff;
+        }
+        
+        .category-label, .category-count {
+          color: #fff;
+        }
+      }
+    }
+    
+    &.genre-card {
+      min-height: 70px;
+      padding: 12px 8px;
+      
+      .category-label {
+        font-size: 12px;
+      }
+      
+      .category-icon ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+  
+  .category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ion-icon {
+      font-size: 22px;
+      color: #4ecdc4;
+      transition: all 0.3s ease;
+    }
+  }
+  
+  .category-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+  }
+  
+  .category-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+    border: 1px solid rgba(78, 205, 196, 0.3);
+  }
+}
+
+// Movies Section
+.movies-section {
+  padding: 0 16px 100px;
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    
+    .section-meta {
+      font-size: 14px;
+      color: #999;
+      background: rgba(255,255,255,0.05);
+      padding: 4px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  
+  .empty-icon {
+    margin-bottom: 20px;
+    
+    ion-icon {
+      font-size: 64px;
+      color: #333;
+    }
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: #666;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+// Movies Grid
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+    
+    .movie-overlay {
+      opacity: 1;
+    }
+  }
+  
+  .movie-poster {
+    position: relative;
+    aspect-ratio: 2/3;
+    background: linear-gradient(135deg, #333, #555);
+    
+    .poster-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      
+      ion-icon {
+        font-size: 48px;
+      }
+    }
+    
+    .movie-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      
+      .play-btn {
+        --background: rgba(255,255,255,0.2);
+        --border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        
+        ion-icon {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+  
+  .movie-info {
+    padding: 12px;
+    
+    .movie-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: #fff;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+    
+    .movie-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #999;
+      
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        
+        ion-icon {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  
+  .favorite-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    .heart-icon {
+      font-size: 16px;
+      transition: transform 0.3s ease;
+      
+      &.favorito {
+        transform: scale(1.2);
+      }
+    }
+    
+    &:hover {
+      background: rgba(0,0,0,0.9);
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Loading
+.loading-section {
+  text-align: center;
+  padding: 40px 16px;
+  color: #999;
+  
+  ion-spinner {
+    margin-bottom: 16px;
+  }
+}
+
+// Bottom Tabs
+ion-tab-bar {
+  --background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  // Adicionando padding para safe area inferior
+  padding-bottom: env(safe-area-inset-bottom);
+  
+  ion-tab-button {
+    --color: #666;
+    --color-selected: #4ecdc4;
+    
+    &.active {
+      --color: #4ecdc4;
+      
+      ion-icon {
+        transform: scale(1.1);
+      }
+    }
+    
+    ion-label {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
+.poster-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+
+// Responsividade
+@media (max-width: 768px) {
+  .categories-section {
+    .categories-container {
+      .favorites-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .genres-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+    }
+    
+    .category-card {
+      min-height: 70px;
+      padding: 12px 8px;
+      
+      &.genre-card {
+        min-height: 60px;
+        
+        .category-label {
+          font-size: 11px;
+        }
+        
+        .category-icon ion-icon {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  .movies-section {
+    padding: 0 12px 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-section {
+    .categories-container {
+      .favorites-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      
+      .genres-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
