@@ -56,11 +56,13 @@ Ryan Paixão
 👨‍💻 @RyanOctaviano
 
 Bruno Ereias
-👨‍💻
+👨‍💻 @Brunoereias
 
 Ivin Campos
-👨‍💻
+👨‍💻 @Ivincampos
 
+## 📲 Apk mobile
+[Apk Re-Cine](app-debug-ReCine.apk)
 
 ## 🧪 Como Executar o Projeto
 
