@@ -12,18 +12,26 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('../login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'cadastro',
-    loadComponent: () => import('../cadastro/cadastro.page').then( m => m.CadastroPage)
+    loadComponent: () => import('./cadastro/cadastro.page').then( m => m.CadastroPage)
   },
   {
     path: 'detalhes/:id',  // 👈 MUDANÇA AQUI - Adicionado /:id para receber o parâmetro
-    loadComponent: () => import('../detalhes/detalhes.page').then( m => m.DetalhesPage)
+    loadComponent: () => import('./detalhes/detalhes.page').then( m => m.DetalhesPage)
   },
   {
     path: 'principal',
-    loadComponent: () => import('../principal/principal.page').then( m => m.PrincipalPage)
+    loadComponent: () => import('./principal/principal.page').then( m => m.PrincipalPage)
+  },
+  {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
+  },
+  {
+    path: 'sobre-nos',
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
   },
 ];

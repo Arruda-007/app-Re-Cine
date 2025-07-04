@@ -6,21 +6,33 @@
       </ion-button>
     </ion-buttons>
 
+      <!-- Nova barra de pesquisa embutida sem botão de fechar -->
     <ion-item class="search-item" [hidden]="!buscaAtiva">
-      <ion-input
-        placeholder="Buscar filmes e séries..."
-        [(ngModel)]="termoBusca"
-        (ionInput)="buscarFilmes($event)"
-        [clearInput]="termoBusca.length > 0"
-        debounce="300">
-      </ion-input>
+      <ion-input placeholder="Buscar filmes e séries..." [(ngModel)]="termoBusca" (ionInput)="buscarFilmes($event)" [clearInput]="termoBusca.length > 0" debounce="300"></ion-input>
     </ion-item>
-
+    
+ <!-- Botão para ativar/desativar busca -->
     <ion-buttons slot="end" *ngIf="!buscaAtiva">
       <ion-button fill="clear" (click)="abrirBusca()">
         <ion-icon name="search" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
+  </ion-toolbar>
+
+
+<!-- Nova barra de navegação adicional -->
+  <ion-toolbar class="secondary-toolbar">
+    <div class="navigation-buttons">
+      <ion-button fill="clear" class="nav-button" (click)="irParaSobreNos()">
+        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+        Sobre Nós
+      </ion-button>
+      
+      <ion-button fill="clear" class="nav-button" (click)="irParaPerfil()">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        Perfil
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -36,6 +48,7 @@
   <!-- Categorias -->
   <div class="categories-section">
     <div class="categories-container">
+       <!-- Primeira linha - Favoritos em destaque -->
       <div class="favorites-row">
         <div class="category-card favorites-card"
           [class.active]="categoriaAtual === 'Favoritos'"
@@ -116,13 +129,16 @@
     </div>
 
     <!-- Scroll deve estar fora do *ngFor -->
+
+  <!--  
     <ion-infinite-scroll threshold="100px" (ionInfinite)="carregarMaisFilmes($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Carregando mais filmes...">
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </div>
+    </ion-infinite-scroll> -->
+
+  </div> 
 
   <!-- Carregando -->
   <div class="loading-section" *ngIf="carregando">

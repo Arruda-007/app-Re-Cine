@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, MenuController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { MovieService } from '../app/services/movie.service'; 
+import { MovieService } from '../services/movie.service'; 
 
 interface Filme {
   id: number;
@@ -38,14 +38,16 @@ export class PrincipalPage implements OnInit {
   generos: any[] = [];
 
 
-  constructor(private router: Router, private http: HttpClient, private movieService: MovieService ) { }
+  constructor(private router: Router, private http: HttpClient, private movieService: MovieService, private menuCtrl: MenuController ) { }
 
   ngOnInit() {
     console.log('Página Principal carregada');
     // Inicializar arrays
     this.buscarFilmesApi(); // Carregar filmes da API
     this.carregarGeneros();
-    this.carregarMaisFilmes();
+   // this.carregarMaisFilmes();
+    this.carregarVariasPaginas(25); // carregar 25 páginas
+
   }
 
   getIconeGenero(nome: string): string {
@@ -73,8 +75,43 @@ export class PrincipalPage implements OnInit {
   return icones[nome] || 'film-outline'; // ícone padrão
 }
 
+carregarVariasPaginas(qtdPaginas: number) {
+  this.carregando = true;
+
+  let carregadas = 0;
+
+  for (let i = 1; i <= qtdPaginas; i++) {
+    this.movieService.getFilmesPopulares(i).subscribe(res => {
+      const novosFilmes = res.results.map((filme: any) => ({
+        id: filme.id,
+        titulo: filme.title,
+        poster: 'https://image.tmdb.org/t/p/w500' + filme.poster_path,
+        rating: filme.vote_average,
+        ano: filme.release_date?.split('-')[0],
+        favorito: false,
+        generos: filme.genre_ids,
+        categoria: 'Populares'
+      }));
+
+      const filmesNaoRepetidos = novosFilmes.filter(
+        (novo: Filme) => !this.todoFilmes.some(f => f.id === novo.id)
+      );
+
+      this.todoFilmes.push(...filmesNaoRepetidos);
+      this.filmesFiltrados = [...this.todoFilmes];
+
+      carregadas++;
+      if (carregadas === qtdPaginas) {
+        this.carregando = false;
+        console.log(`✅ ${this.todoFilmes.length} filmes carregados.`);
+      }
+    });
+  }
+}
+
+
   filtrarPorGenero(idGenero: number) {
-  this.filmesFiltrados = this.filmes.filter(filme =>
+  this.filmesFiltrados = this.todoFilmes.filter(filme =>
     filme.generos?.includes(idGenero)
   );
 }
@@ -84,7 +121,7 @@ export class PrincipalPage implements OnInit {
     this.generos = res.genres;
   });
 }
-
+/*
   carregarMaisFilmes(event?: CustomEvent) {
     if (this.paginaAtual > this.totalPaginas) {
     if (event) (event.target as HTMLIonInfiniteScrollElement).disabled = true;
@@ -127,11 +164,11 @@ export class PrincipalPage implements OnInit {
     if (event) (event.target as HTMLIonInfiniteScrollElement).complete();
     this.carregando = false;
   });
-}
+} */
 
 
   abrirMenu() {
-    console.log('Menu aberto');
+    this.menuCtrl.open();
     // Aqui você implementaria a abertura do menu lateral
     // Exemplo: this.menuController.open();
   }
@@ -177,28 +214,24 @@ export class PrincipalPage implements OnInit {
   }
 
   selecionarCategoria(categoria: any) {
-    // Desativar todas as categorias de gênero
-    this.generos.forEach(gen => gen.ativo = false);
-    
-    // Ativar a categoria selecionada se for um gênero
-    if (categoria.nome !== 'Favoritos' && categoria.nome !== 'Populares') {
-      const genero = this.generos.find(g => g.nome === categoria.nome);
-      if (genero) {
-        genero.ativo = true;
-      }
-    }
-    
-    this.categoriaAtual = categoria.nome;
-    
-    // Limpar busca quando trocar categoria
-    this.termoBusca = '';
-    this.buscaAtiva = false;
-    
-    console.log('Categoria selecionada:', categoria.nome);
-    
-    // Filtrar filmes por categoria
-    this.filtrarPorCategoria(categoria.nome);
+  this.generos.forEach(gen => gen.ativo = false);
+
+  const genero = this.generos.find(g => g.nome === categoria.nome || g.name === categoria.nome);
+
+  if (genero) {
+    genero.ativo = true;
+    this.filtrarPorGenero(genero.id); // ← Aqui está o segredo
+  } else if (categoria.nome === 'Favoritos') {
+    this.filtrarPorCategoria('Favoritos');
+  } else {
+    this.filtrarPorCategoria('Populares');
   }
+
+  this.categoriaAtual = categoria.nome;
+  this.termoBusca = '';
+  this.buscaAtiva = false;
+}
+
 
   filtrarPorCategoria(categoria: string) {
     switch (categoria) {
@@ -295,6 +328,15 @@ export class PrincipalPage implements OnInit {
       console.log('💡 Dica: Configure a rota /perfil no app-routing.module.ts');
     });
   }
+
+   irParaSobreNos() {
+    console.log('Navegando para Sobre Nós');
+    this.router.navigate(['/sobre-nos']).catch(err => {
+      console.log('Erro na navegação - Rota /sobre-nos não configurada ainda:', err);
+      console.log('💡 Dica: Configure a rota /sobre-nos no app-routing.module.ts');
+    });
+  }
+
 
   // Métodos utilitários adicionais
 
