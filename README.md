@@ -37,14 +37,29 @@ Re-Cine é um aplicativo mobile desenvolvido com **Angular + Ionic** que consome
 
 ---
 
-### 🏠 Tela Inicial
-![Tela Inicial](Paginainicial.jpeg)
+<h3>📱 Tela Inicial</h3>
+<img src="Paginainicial.jpeg" alt="Página Inicial" width="200"/>
 
-### 🎬 Filtro por Gênero
-![Filtro por Gênero](Filtro.jpeg)
+<h3>🎯 Filtro por Gênero</h3>
+<img src="Filtro.jpeg" alt="Filtro por Gênero" width="200"/>
 
-### 💡 Detalhes
-![Filtro por Gênero](Detalhes.jpeg)
+<h3>🎬 Detalhes do Filme</h3>
+<img src="Detalhes.jpeg" alt="Detalhes do Filme" width="200"/>
+
+---
+
+## 📌 Autores
+Caue Arruda
+👨‍💻 @Arruda-007
+
+Ryan Paixão
+👨‍💻 @RyanOctaviano
+
+Bruno Ereias
+👨‍💻
+
+Ivin Campos
+👨‍💻
 
 
 ## 🧪 Como Executar o Projeto
@@ -68,20 +83,8 @@ Para acessar a área logada (perfil), é necessário:
 Criar uma conta na tela de cadastro
 Ou acessar com um usuário válido do Firebase Auth
 
-📌 Autores
-Caue Arruda
-👨‍💻 @Arruda-007
-
-Ryan Paixão
-👨‍💻 @RyanOctaviano
-
-Bruno Ereias
-👨‍💻
-
-Ivin Campos
-👨‍💻
-
-📜 Licença
+```
+## 📜 Licença
 Este projeto está sob a licença MIT.
 Sinta-se à vontade para usar, estudar e adaptar. 
 
