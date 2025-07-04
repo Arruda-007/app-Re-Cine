@@ -37,6 +37,16 @@ Re-Cine é um aplicativo mobile desenvolvido com **Angular + Ionic** que consome
 
 ---
 
+### 🏠 Tela Inicial
+![Tela Inicial](prints/Paginainicial.jpeg)
+
+### 🎬 Filtro por Gênero
+![Filtro por Gênero](prints/genero.png)
+
+### 💡 Detalhes
+![Filtro por Gênero](prints/genero.png)
+
+
 ## 🧪 Como Executar o Projeto
 
 ```bash
